@@ -9,10 +9,26 @@ class App extends Component {
     this.state = {
       styleDisplay: { display: "block" },
       styleVisibility: { visibility: "hidden" },
+      width: window.innerWidth,
+      height: window.innerHeight,
       timeLeft: 30,
+      bubble: [],
+
       // Randomly Select the Burst-all Bubble
       pickedBubble: "bubble" + Math.floor(Math.random() * 64 + 1)
     };
+  }
+
+  componentDidMount() {
+    let bubble = [];
+    for (var e = 0; e < 64; e++) {
+      let obj = { id: e, vis: true };
+      bubble.push(obj);
+    }
+
+    this.setState({
+      bubble: bubble
+    });
   }
 
   startGame = () => {
@@ -158,7 +174,7 @@ class App extends Component {
           <div id="timeUP" />
 
           <Bubbles
-            bubbles={this.props.bubbles}
+            bubbles={this.state.bubbles}
             styleVisibility={this.state.styleVisibility}
             clickBubble={this.clickBubble}
           />
@@ -202,7 +218,7 @@ const Bubbles = props => {
             src={bubbleImg}
             alt="bubble"
             id={"bubble" + (i + 1)}
-            className={bubble}
+            className={bubble.vis}
             style={props.styleVisibility}
             onClick={props.clickBubble}
             unselectable="on"
@@ -213,74 +229,4 @@ const Bubbles = props => {
   );
 };
 
-App.defaultProps = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-  bubbles: [
-    "pop",
-    "popbubble43",
-    "popbubble11",
-    "popbubble30",
-    "popbubble59",
-    "pop",
-    "popbubble52",
-    "popbubble24",
-    "popbubble43",
-    "pop",
-    "pop",
-    "popbubble6",
-    "popbubble24",
-    "popbubble52",
-    "popbubble59",
-    "pop",
-    "popbubble43",
-    "pop",
-    "pop",
-    "popbubble52",
-    "popbubble30",
-    "popbubble59",
-    "popbubble6",
-    "pop",
-    "popbubble11",
-    "popbubble52",
-    "popbubble43",
-    "pop",
-    "popbubble24",
-    "pop",
-    "popbubble59",
-    "pop",
-    "popbubble24",
-    "popbubble6",
-    "popbubble59",
-    "popbubble52",
-    "pop",
-    "popbubble43",
-    "popbubble59",
-    "popbubble30",
-    "popbubble52",
-    "popbubble24",
-    "pop",
-    "popbubble30",
-    "popbubble6",
-    "pop",
-    "pop",
-    "popbubble59",
-    "pop",
-    "popbubble24",
-    "popbubble6",
-    "pop",
-    "popbubble11",
-    "popbubble43",
-    "pop",
-    "pop",
-    "popbubble11",
-    "popbubble52",
-    "pop",
-    "popbubble24",
-    "popbubble30",
-    "popbubble6",
-    "popbubble43",
-    "pop"
-  ]
-};
 export default App;
