@@ -1,14 +1,187 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  position: relative;
+  min-height: 93%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+  display: block;
+  background: url(img/background.jpg) center center / cover no-repeat fixed;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0 0 30px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Home Link */
+nav {
+  min-height: 10px;
+  margin-bottom: 20px;
+  padding: 0 15px;
+}
+
+nav a,
+nav span {
+  height: 30px;
+  color: #404040;
+  font-size: 1.25em;
+  margin: 5px;
+  padding-top: 5px;
+  padding-bottom: 0;
+  border-bottom: 3px solid #404040;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+span:hover,
+span:hover {
+  border-bottom: 5px solid #404040;
+  outline: none;
+}
+
+main {
+  margin-top: -30px;
+  text-align: left;
+}
+
+h1 {
+  display: inline-block;
+  font-family: "Arial", Gadget, sans-serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  padding: 10px 15px;
+  margin: 5px 20px 10px;
+  border-radius: 15px;
+}
+
+h1,
+#instruction {
+  text-shadow: 2px 2px 4px #ffffff;
+}
+
+h1,
+#instruction > p,
+#instruction > div {
+  background-color: #d9d9d9;
+  border: 2px solid #c3c3c3;
+}
+
+#instruction {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#instruction > p,
+#instruction > div {
+  width: 35%;
+  font-family: "Arial", Gadget, sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: 20px;
+  padding: 10px 10px 0;
+  margin: 10px 0 30px 20px;
+}
+
+#instruction > div {
+  text-align: center;
+}
+
+#instruction > p {
+  font-family: "Arial", Gadget, sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+#instruction > div p {
+  margin: 0 0 5px;
+}
+
+.timer {
+  font-family: "Arial", Gadget, sans-serif;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+#countDown {
+  color: #8b0000;
+}
+
+#startButton {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 50px auto;
+  padding: 0;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+/* Bubble Image */
+#allBubbles {
+  display: flex;
+  flex-wrap: wrap;
+  width: 640px;
+  margin: 35px auto;
+  cursor: pointer;
+}
+
+#allBubbles > div {
+  width: 12.5%;
+}
+
+#allBubbles img {
+  width: 100%;
+  height: auto;
+  margin: -3px;
+  /* visibility: visible; */
+}
+
+/* Win Game */
+#goodjob {
+  background: url(img/goodjob.jpg) center center / 250px 210px no-repeat fixed;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  top: 130px;
+  left: 0;
+  right: 0;
+  z-index: -2;
+  visibility: hidden;
+}
+
+/* Lost Game */
+#timeUP {
+  background: url(img/timeisup.jpg) center center / 210px no-repeat fixed;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 130px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: -1;
+  visibility: hidden;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  padding-top: 30px;
+  text-align: center;
 }
