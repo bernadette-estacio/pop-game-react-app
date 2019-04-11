@@ -1,48 +1,46 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import start from "./img/start.png";
-import bubbleImg from "./img/bubble.jpg";
+import Nav from "./components/nav";
+import MainContent from "./components/mainContent";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      styleDisplay: { display: "block" },
-      styleVisibility: { visibility: "hidden" },
       width: window.innerWidth,
       height: window.innerHeight,
+      startButton: true,
+      instruction: true,
+      bubblesList: [],
+      allBubbles: true,
+      goodjob: false,
+      timeUP: false,
       timeLeft: 30,
-      bubble: [],
-
       // Randomly Select the Burst-all Bubble
-      pickedBubble: "bubble" + Math.floor(Math.random() * 64 + 1)
+      pickedBubble: "bubble" + Math.floor(Math.random() * 64 + 1),
+      // Trigger Show Bubbles
+      triggerBubbles: []
     };
   }
 
-  componentDidMount() {
-    let bubble = [];
-    for (var e = 0; e < 64; e++) {
-      let obj = { id: e, vis: true };
-      bubble.push(obj);
-    }
-
-    this.setState({
-      bubble: bubble
-    });
-  }
-
   startGame = () => {
-    console.log(
-      ReactDOM.findDOMNode(document.getElementById(this.state.pickedBubble))
-    ); // DELETE------------
+    console.log("Burst All:", this.state.pickedBubble);
+    // Create a bubblesList
+    let bubbles = [];
+    for (let i = 1; i <= 64; i++) {
+      let bubble = { id: "bubble" + i, visibility: "visible" };
+      bubbles.push(bubble);
+    }
+    // Create a triggerBubbles
+    let triggerBubbles = [];
+    for (let i = 0; i < 7; i++) {
+      triggerBubbles.push("bubble" + Math.floor(Math.random() * 64 + 1));
+    }
     this.setState({
-      styleDisplay: { display: "none" },
-      styleVisibility: { visibility: "visible" }
+      startButton: false,
+      bubblesList: bubbles,
+      triggerBubbles: triggerBubbles
     });
-    this.timerId();
-  };
-
-  timerId = () => {
+    // Timer
     setInterval(
       function() {
         this.state.timeLeft === 0
@@ -55,75 +53,77 @@ class App extends Component {
 
   clickBubble = ev => {
     let clickedBubble = ev.currentTarget.id;
-    this.hideBubble(clickedBubble);
     if (clickedBubble === this.state.pickedBubble) {
       this.burstBonus();
-    }
-    switch (clickedBubble) {
-      case "bubble6":
-        this.showBubbles("popbubble6");
-        break;
-      case "bubble11":
-        this.showBubbles("popbubble11");
-        break;
-      case "bubble24":
-        this.showBubbles("popbubble24");
-        break;
-      case "bubble30":
-        this.showBubbles("popbubble30");
-        break;
-      case "bubble43":
-        this.showBubbles("popbubble43");
-        break;
-      case "bubble52":
-        this.showBubbles("popbubble52");
-        break;
-      case "bubble59":
-        this.showBubbles("popbubble59");
-        break;
+    } else if (this.state.triggerBubbles.indexOf(clickedBubble) >= 0) {
+      this.showBubbles(clickedBubble);
+    } else {
+      this.hideBubble(clickedBubble);
     }
   };
 
+  // Hide clicked bubble
   hideBubble = clickedBubble => {
-    ReactDOM.findDOMNode(
-      document.getElementById(clickedBubble)
-    ).style.visibility = "hidden";
+    const bubblesList = [...this.state.bubblesList];
+    const bubble = bubblesList.find(b => b.id === clickedBubble);
+    const index = bubblesList.indexOf(bubble);
+    bubblesList[index] = { ...bubblesList[index] };
+    bubblesList[index].visibility = "invisible";
+    this.setState({
+      bubblesList
+    });
   };
 
-  showBubbles = showBubble => {
-    ReactDOM.findDOMNode(
-      document.getElementsByClassName(showBubble)
-    ).style.visibility = "visible";
+  // Show bubbles from triggered bubble
+  showBubbles = clickedBubble => {
+    // Random select bubbles to show
+    const showList = [];
+    for (let i = 0; i < 7; i++) {
+      showList.push(Math.floor(Math.random() * 64 + 1));
+    }
+    const bubblesList = [...this.state.bubblesList];
+    for (let i = 0; i < showList.length; i++) {
+      let index = showList[i];
+      bubblesList[index] = { ...bubblesList[index] };
+      bubblesList[index].visibility = "visible";
+    }
+    // Hide clicked bubble
+    const bubble = bubblesList.find(b => b.id === clickedBubble);
+    const index = bubblesList.indexOf(bubble);
+    bubblesList[index] = { ...bubblesList[index] };
+    bubblesList[index].visibility = "invisible";
+    this.setState({
+      bubblesList
+    });
+  };
+
+  stopGame = () => {
+    this.burst();
+    this.setState({
+      instruction: false,
+      timeUP: true
+    });
   };
 
   // Burst all bubble by pickedBubble
   burstBonus = () => {
     this.burst();
-    setTimeout(function() {
-      ReactDOM.findDOMNode(
-        document.getElementById("instruction")
-      ).style.visibility = "hidden";
-      ReactDOM.findDOMNode(document.getElementById("timeUP")).style.display =
-        "none";
-      ReactDOM.findDOMNode(
-        document.getElementById("goodjob")
-      ).style.visibility = "visible";
-    }, 750);
-  };
-
-  stopGame = () => {
-    this.burst();
-    // ReactDOM.findDOMNode(
-    //   document.getElementById("instruction")
-    // ).style.visibility = "hidden";
-    ReactDOM.findDOMNode(document.getElementById("timeUP")).style.visibility =
-      "visible";
+    setTimeout(
+      function() {
+        this.setState({
+          instruction: false,
+          goodjob: true
+        });
+      }.bind(this),
+      1000
+    );
   };
 
   // Burst All Bubbles
   burst = () => {
-    ReactDOM.findDOMNode(document.getElementById("allBubbles")).style.display =
-      "none";
+    this.setState({
+      allBubbles: false
+    });
   };
 
   reset = () => {
@@ -133,52 +133,19 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav>
-          <a
-            href="http://bernadetteengleman.com/index.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Home
-          </a>
-          <span onClick={this.reset}>Reset</span>
+        <Nav reset={this.reset} />
 
-          <h1>Pop The Bubbles Game</h1>
-        </nav>
-
-        <main>
-          <div className="row" id="instruction">
-            <p>
-              Some bubbles will make popped bubbles appear BUT there is one
-              bubble that can pop everything!
-            </p>
-
-            <Timer timeLeft={this.state.timeLeft} />
-          </div>
-
-          <div>
-            <img
-              src={start}
-              alt="START"
-              id="startButton"
-              width="80"
-              style={this.state.styleDisplay}
-              onClick={this.startGame}
-            />
-          </div>
-
-          {/* Winner Image */}
-          <div id="goodjob" />
-
-          {/* Time is Up Image */}
-          <div id="timeUP" />
-
-          <Bubbles
-            bubbles={this.state.bubbles}
-            styleVisibility={this.state.styleVisibility}
-            clickBubble={this.clickBubble}
-          />
-        </main>
+        <MainContent
+          instruction={this.state.instruction}
+          timeLeft={this.state.timeLeft}
+          startButton={this.state.startButton}
+          startGame={this.startGame}
+          bubblesList={this.state.bubblesList}
+          clickBubble={this.clickBubble}
+          allBubbles={this.state.allBubbles}
+          goodjob={this.state.goodjob}
+          timeUP={this.state.timeUP}
+        />
 
         <footer>
           <p>
@@ -193,40 +160,9 @@ class App extends Component {
   }
 }
 
-const Timer = props => {
-  return (
-    <div>
-      <p>You have 30 seconds to pop all the bubbles.</p>
-
-      <p className="timer">
-        Time Left:{" "}
-        <strong>
-          <span id="countDown">{props.timeLeft}</span>{" "}
-        </strong>
-        sec
-      </p>
-    </div>
-  );
-};
-
-const Bubbles = props => {
-  return (
-    <div id="allBubbles">
-      {props.bubbles.map((bubble, i) => (
-        <div key={i}>
-          <img
-            src={bubbleImg}
-            alt="bubble"
-            id={"bubble" + (i + 1)}
-            className={bubble.vis}
-            style={props.styleVisibility}
-            onClick={props.clickBubble}
-            unselectable="on"
-          />
-        </div>
-      ))}
-    </div>
-  );
+App.defaultProps = {
+  width: window.innerWidth,
+  height: window.innerHeight
 };
 
 export default App;
