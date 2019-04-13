@@ -14,13 +14,13 @@ const MainContent = ({
   allBubbles,
   clickBubble
 }) => {
-  let instructionClass = instruction ? " visible" : " invisible";
+  let instructionClass = instruction ? "visible" : "invisible";
   let startClass = startButton ? "yesDisplay" : "noDisplay";
   let goodJobClass = goodjob ? " visible" : " invisible";
   let timeUPClass = timeUP ? " visible" : " invisible";
   return (
     <main>
-      <div className={"row" + instructionClass} id="instruction">
+      <div className={instructionClass} id="instruction">
         <p className="messageFont">
           Some bubbles will make popped bubbles appear BUT there is one bubble
           that can pop everything!
