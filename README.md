@@ -1,3 +1,19 @@
+## **Pop The Bubbles Game**
+
+The objective of Pop The Bubbles Game is to pop all 64 bubbles within 30 seconds. Some bubbles will make popped bubbles appear again but there is only one bubble that can pop everything.
+
+![Pop The Bubbles Game Webpage](http://www.bernadetteengleman.com/img/portfolio/popthumbnail2.jpg)
+
+- It is a single-page, responsive application programmed with React
+
+**Front-End:**
+
+- React
+- CSS
+- HTML
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
