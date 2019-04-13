@@ -1,14 +1,14 @@
 import React from "react";
 
-const Timer = props => {
+const Timer = ({ timeLeft }) => {
   return (
     <div>
-      <p>You have 30 seconds to pop all the bubbles.</p>
+      <p className="messageFont">You have 30 seconds to pop all the bubbles.</p>
 
       <p className="timer">
         Time Left:{" "}
         <strong>
-          <span id="countDown">{props.timeLeft}</span>{" "}
+          <span id="countDown">{timeLeft}</span>{" "}
         </strong>
         sec
       </p>

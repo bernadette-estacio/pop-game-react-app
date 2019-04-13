@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
+import Mechanics from "./components/mechanics";
 import Nav from "./components/nav";
 import MainContent from "./components/mainContent";
 
-class App extends Component {
+class App extends Mechanics {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,129 +23,30 @@ class App extends Component {
     };
   }
 
-  startGame = () => {
-    console.log("Burst All:", this.state.pickedBubble);
-    // Create a bubblesList
-    let bubbles = [];
-    for (let i = 1; i <= 64; i++) {
-      let bubble = { id: "bubble" + i, visibility: "visible" };
-      bubbles.push(bubble);
-    }
-    // Create a triggerBubbles
-    let triggerBubbles = [];
-    for (let i = 0; i < 7; i++) {
-      triggerBubbles.push("bubble" + Math.floor(Math.random() * 64 + 1));
-    }
-    this.setState({
-      startButton: false,
-      bubblesList: bubbles,
-      triggerBubbles: triggerBubbles
-    });
-    // Timer
-    setInterval(
-      function() {
-        this.state.timeLeft === 0
-          ? this.stopGame()
-          : this.setState({ timeLeft: this.state.timeLeft - 1 });
-      }.bind(this),
-      1000
-    );
-  };
-
-  clickBubble = ev => {
-    let clickedBubble = ev.currentTarget.id;
-    if (clickedBubble === this.state.pickedBubble) {
-      this.burstBonus();
-    } else if (this.state.triggerBubbles.indexOf(clickedBubble) >= 0) {
-      this.showBubbles(clickedBubble);
-    } else {
-      this.hideBubble(clickedBubble);
-    }
-  };
-
-  // Hide clicked bubble
-  hideBubble = clickedBubble => {
-    const bubblesList = [...this.state.bubblesList];
-    const bubble = bubblesList.find(b => b.id === clickedBubble);
-    const index = bubblesList.indexOf(bubble);
-    bubblesList[index] = { ...bubblesList[index] };
-    bubblesList[index].visibility = "invisible";
-    this.setState({
-      bubblesList
-    });
-  };
-
-  // Show bubbles from triggered bubble
-  showBubbles = clickedBubble => {
-    // Random select bubbles to show
-    const showList = [];
-    for (let i = 0; i < 7; i++) {
-      showList.push(Math.floor(Math.random() * 64 + 1));
-    }
-    const bubblesList = [...this.state.bubblesList];
-    for (let i = 0; i < showList.length; i++) {
-      let index = showList[i];
-      bubblesList[index] = { ...bubblesList[index] };
-      bubblesList[index].visibility = "visible";
-    }
-    // Hide clicked bubble
-    const bubble = bubblesList.find(b => b.id === clickedBubble);
-    const index = bubblesList.indexOf(bubble);
-    bubblesList[index] = { ...bubblesList[index] };
-    bubblesList[index].visibility = "invisible";
-    this.setState({
-      bubblesList
-    });
-  };
-
-  stopGame = () => {
-    this.burst();
-    this.setState({
-      instruction: false,
-      timeUP: true
-    });
-  };
-
-  // Burst all bubble by pickedBubble
-  burstBonus = () => {
-    this.burst();
-    setTimeout(
-      function() {
-        this.setState({
-          instruction: false,
-          goodjob: true
-        });
-      }.bind(this),
-      1000
-    );
-  };
-
-  // Burst All Bubbles
-  burst = () => {
-    this.setState({
-      allBubbles: false
-    });
-  };
-
-  reset = () => {
-    window.location.reload();
-  };
-
   render() {
+    const {
+      instruction,
+      timeLeft,
+      startButton,
+      bubblesList,
+      allBubbles,
+      goodjob,
+      timeUP
+    } = this.state;
     return (
       <div>
         <Nav reset={this.reset} />
 
         <MainContent
-          instruction={this.state.instruction}
-          timeLeft={this.state.timeLeft}
-          startButton={this.state.startButton}
+          instruction={instruction}
+          timeLeft={timeLeft}
+          startButton={startButton}
           startGame={this.startGame}
-          bubblesList={this.state.bubblesList}
+          bubblesList={bubblesList}
           clickBubble={this.clickBubble}
-          allBubbles={this.state.allBubbles}
-          goodjob={this.state.goodjob}
-          timeUP={this.state.timeUP}
+          allBubbles={allBubbles}
+          goodjob={goodjob}
+          timeUP={timeUP}
         />
 
         <footer>
