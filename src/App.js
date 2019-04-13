@@ -1,28 +1,70 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Mechanics from "./components/mechanics";
+import Nav from "./components/nav";
+import MainContent from "./components/mainContent";
 
-class App extends Component {
+class App extends Mechanics {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      startButton: true,
+      instruction: true,
+      bubblesList: [],
+      allBubbles: true,
+      goodjob: false,
+      timeUP: false,
+      timeLeft: 30,
+      // Randomly Select the Burst-all Bubble
+      pickedBubble: "bubble" + Math.floor(Math.random() * 64 + 1),
+      // Trigger Show Bubbles
+      triggerBubbles: []
+    };
+  }
+
   render() {
+    const {
+      instruction,
+      timeLeft,
+      startButton,
+      bubblesList,
+      allBubbles,
+      goodjob,
+      timeUP
+    } = this.state;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      <div>
+        <Nav reset={this.reset} />
+
+        <MainContent
+          instruction={instruction}
+          timeLeft={timeLeft}
+          startButton={startButton}
+          startGame={this.startGame}
+          bubblesList={bubblesList}
+          clickBubble={this.clickBubble}
+          allBubbles={allBubbles}
+          goodjob={goodjob}
+          timeUP={timeUP}
+        />
+
+        <footer>
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            <small>
+              Copyright © 2015-{new Date().getFullYear()} Bernadette Estacio.
+              All rights reserved
+            </small>
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        </footer>
       </div>
     );
   }
 }
+
+App.defaultProps = {
+  width: window.innerWidth,
+  height: window.innerHeight
+};
 
 export default App;
