@@ -7,8 +7,6 @@ class App extends Mechanics {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight,
       startButton: true,
       instruction: true,
       bubblesList: [],
@@ -53,7 +51,7 @@ class App extends Mechanics {
           <p>
             <small>
               Copyright © 2015-{new Date().getFullYear()} Bernadette Estacio.
-              All rights reserved
+              All rights reserved.
             </small>
           </p>
         </footer>
@@ -61,10 +59,5 @@ class App extends Mechanics {
     );
   }
 }
-
-App.defaultProps = {
-  width: window.innerWidth,
-  height: window.innerHeight
-};
 
 export default App;
