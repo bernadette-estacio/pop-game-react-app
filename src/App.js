@@ -145,7 +145,7 @@ class App extends Component {
       timeUP
     } = this.state;
     return (
-      <div>
+      <div class="content">
         <Nav reset={this.reset} />
 
         <MainContent

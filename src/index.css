@@ -11,10 +11,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
-  margin: 0 0 30px;
+  margin: 0;
+  /* margin: 0 0 30px; */
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+}
+
+.content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 /* Home Link */
@@ -48,6 +55,7 @@ span:hover {
 }
 
 main {
+  flex: 1;
   margin-top: -30px;
   text-align: left;
 }
@@ -194,7 +202,7 @@ h1,
 footer {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 10px;
   height: 30px;
   width: 100%;
   padding-top: 30px;
