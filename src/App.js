@@ -40,7 +40,7 @@ class App extends Component {
     });
     // Timer
     setInterval(
-      function() {
+      function () {
         this.state.timeLeft >= 1
           ? this.setState({ timeLeft: this.state.timeLeft - 1 })
           : this.stopGame();
@@ -98,7 +98,7 @@ class App extends Component {
   stopGame = () => {
     this.burst();
     setTimeout(
-      function() {
+      function () {
         this.setState({
           instruction: false,
           timeUP: true
@@ -112,7 +112,7 @@ class App extends Component {
   burstBonus = () => {
     this.burst();
     setTimeout(
-      function() {
+      function () {
         this.setState({
           instruction: false,
           goodjob: true,
@@ -161,11 +161,7 @@ class App extends Component {
         />
 
         <footer>
-          <p>
-            <small>
-              Copyright © 2015-{new Date().getFullYear()} Bernadette Estacio.
-              All rights reserved.
-            </small>
+          <p>© 2015-{new Date().getFullYear()} Bernadette Estacio
           </p>
         </footer>
       </div>

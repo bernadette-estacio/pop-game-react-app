@@ -35,7 +35,7 @@ const MainContent = ({
           alt="START"
           className={startClass}
           id="startButton"
-          width="80"
+          width="120"
           onClick={startGame}
         />
       </div>
