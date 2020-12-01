@@ -28,8 +28,8 @@ body {
 nav {
   min-height: 10px;
   background-color: #d9d9d9;
-  margin-top: 20px;
-  padding: 15px 15px 0;
+  margin-top: -10px;
+  padding: 35px 15px 0;
 }
 
 nav a,
@@ -45,9 +45,11 @@ nav span {
   transition: all ease;
 }
 
-nav a {
+nav a,
+nav span {
   background-color: #404040;
   color: white;
+  padding: 5px;
   text-decoration: none;
 }
 
@@ -81,43 +83,46 @@ h1,
 }
 
 #instruction {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: flex-start; */
   background-color: #d9d9d9;
   border-bottom: 2px solid #c3c3c3;
+  text-align: center;
 }
 
-#instruction > p,
-#instruction > div {
-  width: 35%;
+#instruction p {
+  /* width: 35%; */
   font-family: "Arial", Gadget, sans-serif;
   font-size: 1em;
   font-weight: 700;
   line-height: 24px;
   padding: 10px 10px 0;
-  margin: 10px 0 10px 20px;
+  margin: 10px;
 }
 
 #instruction > div {
   text-align: center;
 }
 
-#instruction > p {
+#instruction p {
   font-family: "Arial", Gadget, sans-serif;
-  font-size: 1em;
+  font-size: 1.25em;
   font-weight: 700;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-#instruction > div p {
+/* #instruction > div p {
+  font-size: 1.25em;
   margin: 0 0 5px;
-}
+} */
 
-.timer {
+#instruction .timer {
   font-family: "Arial", Gadget, sans-serif;
-  font-size: 1.3em;
+  font-size: 1.5em;
   font-weight: 600;
+  margin-bottom: 15px;
 }
 
 #countDown {
@@ -201,16 +206,42 @@ h1,
 footer {
   position: absolute;
   left: 0;
-  bottom: 10px;
-  height: 30px;
+  bottom: 5vh;
+  height: 10px;
   width: 100%;
   padding-top: 30px;
   text-align: center;
 }
 
+@media (max-width: 768px){ 
+  nav {
+    padding: 10px 0 0;
+  }
+  nav a {
+    float: left;
+    height: auto;
+    margin-right: 10px;
+  }
+  nav span {
+    float: right;
+    height: auto;
+    margin-left: 10px;
+  }
+  h1 {
+    margin-top: 0;
+  }
+}
+
 @media screen and (max-width: 650px) {
   h1 {
     font-size: 1.9em;
+  }
+  #instruction p {
+    font-size: 1em;
+    margin: 0;
+  }
+  #instruction .timer {
+    font-size: 1.25em;
   }
 }
 
@@ -218,7 +249,9 @@ footer {
   h1 {
     font-size: 1.7em;
   }
-  .messageFont {
+  nav a,
+  nav span,
+  #instruction p {
     font-size: 1em;
   }
 }
@@ -226,10 +259,6 @@ footer {
 @media screen and (max-width: 450px) {
   h1 {
     font-size: 1.5em;
-  }
-  #instruction > p,
-  #instruction > div {
-    margin-bottom: 0;
   }
   #allBubbles {
     margin-top: 15px;
@@ -241,25 +270,13 @@ footer {
   nav span {
     font-size: 1em;
   }
-  h1 {
-    font-size: 1.2em;
-  }
-  .timer {
-    font-size: 1.1em;
-  }
-  #startButton {
-    margin-top: 20px;
-  }
 }
 
 @media screen and (max-width: 330px) {
   h1 {
     font-size: 1.1em;
   }
-  .timer {
+  #instruction .timer {
     font-size: 1em;
-  }
-  #startButton {
-    margin-top: 8px;
   }
 }
