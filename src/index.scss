@@ -1,0 +1,41 @@
+html {
+  position: relative;
+  min-height: 93%;
+}
+
+body {
+  display: block;
+  background: url(img/background.jpg) center center / cover no-repeat fixed;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  margin: 0;
+  /* margin: 0 0 30px; */
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.yesDisplay {
+  display: block;
+}
+
+.noDisplay {
+  display: none;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.invisible {
+  visibility: hidden;
+}

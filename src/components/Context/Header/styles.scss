@@ -1,0 +1,25 @@
+.instruction {
+  background-color: #d9d9d9;
+  border-bottom: 2px solid #c3c3c3;
+  text-align: center;
+  text-shadow: 2px 2px 4px #ffffff;
+  visibility: visible;
+
+  p {
+    font-family: "Arial", Gadget, sans-serif;
+    font-size: 1.25em;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 10px 10px 0;
+    margin: 10px;
+
+    @media (max-width: 650px) {
+      font-size: 1em;
+      margin: 0;
+    }
+
+    @media (max-width: 550px) {
+      font-size: 1em;
+    }
+  }
+}
